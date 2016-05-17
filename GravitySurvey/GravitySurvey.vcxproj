@@ -19,10 +19,18 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="area.cpp" />
+    <ClCompile Include="cube.cpp" />
+    <ClCompile Include="include.cpp" />
     <ClCompile Include="point.cpp" />
+    <ClCompile Include="vector3.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="area.h" />
+    <ClInclude Include="cube.h" />
+    <ClInclude Include="include.h" />
     <ClInclude Include="point.h" />
+    <ClInclude Include="vector3.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{9429E203-68FD-4D2A-9E8F-A1046971EFA2}</ProjectGuid>
