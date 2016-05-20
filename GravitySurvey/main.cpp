@@ -1,11 +1,9 @@
-﻿#include "area.h"
+﻿#include "inverse.h"
 
 int main()
 {
-	area a;
-	a.generate("../area.txt");
-
-	system("pause");
+	inverse inv;
+	inv.input("../area.txt", "../receivers.txt");
 	return 0;
 }
 

@@ -16,6 +16,7 @@ class area
 public:
 	vector<point> nodes;
 	vector<cube> cubes;
+	vector3 calc_g(const point & m) const;
 	void generate(const string & filename);
 };
 

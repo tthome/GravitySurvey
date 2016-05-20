@@ -1,10 +1,10 @@
 ﻿#include "include.h"
 
-bool include::inside(const cube & p) const
+bool include::inside(const cube & c) const
 {
-	return p.barycenter.x >= x_min && p.barycenter.x <= x_max &&
-			p.barycenter.y >= y_min && p.barycenter.y <= y_max &&
-			p.barycenter.z >= z_min && p.barycenter.z <= z_max;
+	return c.barycenter.x >= x_min && c.barycenter.x <= x_max &&
+		c.barycenter.y >= y_min && c.barycenter.y <= y_max &&
+		c.barycenter.z >= z_min && c.barycenter.z <= z_max;
 }
 
 istream & operator>>(istream & is, include & a)

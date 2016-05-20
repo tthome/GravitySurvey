@@ -14,7 +14,7 @@ public:
 	double y_min, y_max;
 	double z_min, z_max;
 	vector3 p;
-	bool inside(const cube & p) const;
+	bool inside(const cube & c) const;
 	friend istream & operator >>(istream & is, include & a);
 };
 

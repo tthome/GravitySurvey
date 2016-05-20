@@ -1,5 +1,13 @@
 ﻿#include "area.h"
 
+vector3 area::calc_g(const point & m) const
+{
+	vector3 result(0, 0, 0);
+	for (size_t i = 0; i < cubes.size(); i++)
+		result = result + cubes[i].calc_g(m);
+	return result;
+}
+
 void area::generate(const string & filename)
 {
 	ifstream ifs(filename);
@@ -14,7 +22,6 @@ void area::generate(const string & filename)
 	size_t x_num, y_num, z_num;
 	ifs >> x_num >> y_num >> z_num;
 
-	// Read includes.
 	size_t inc_num;
 	ifs >> inc_num;
 	vector<include> includes;
@@ -30,8 +37,8 @@ void area::generate(const string & filename)
 	ifs.close();
 
 	double hx = (x_max - x_min) / static_cast<double>(x_num),
-			hy = (y_max - y_min) / static_cast<double>(y_num),
-			hz = (z_max - z_min) / static_cast<double>(z_num);
+		hy = (y_max - y_min) / static_cast<double>(y_num),
+		hz = (z_max - z_min) / static_cast<double>(z_num);
 	nodes.resize((x_num + 1) * (y_num + 1) * (z_num + 1));
 	for (size_t i = 0, m = 0; i <= x_num; i++)
 	{
@@ -69,19 +76,6 @@ void area::generate(const string & filename)
 				for (size_t ii = 0; ii < includes.size(); ii++)
 					if (includes[ii].inside(cubes[m]))
 						cubes[m].p = includes[ii].p;
-				if (i > 0)
-					cubes[m].neighbors[0] = cubes.data() + ((i - 1) * y_num + j) * z_num + k;
-				if (i < x_num - 1)
-					cubes[m].neighbors[1] = cubes.data() + ((i + 1) * y_num + j) * z_num + k;
-				if (j > 0)
-					cubes[m].neighbors[2] = cubes.data() + (i * y_num + j - 1) * z_num + k;
-				if (j < y_num - 1)
-					cubes[m].neighbors[3] = cubes.data() + (i * y_num + j + 1) * z_num + k;
-				if (k > 0)
-					cubes[m].neighbors[4] = cubes.data() + (i * y_num + j) * z_num + k - 1;
-				if (k < z_num - 1)
-					cubes[m].neighbors[5] = cubes.data() + (i * y_num + j) * z_num + k + 1;
-				cubes[m].num = m;
 				m++;
 			}
 		}
