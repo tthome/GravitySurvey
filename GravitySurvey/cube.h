@@ -33,7 +33,7 @@ public:
 	point barycenter;
 	cube * neighbors[6];
 	vector3 p;
-	double volume;
+	double mes;
 	size_t num;
 	cube();
 	void init();
