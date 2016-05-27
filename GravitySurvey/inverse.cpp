@@ -19,3 +19,7 @@ void inverse::input(const string & fn_area, const string & fn_receivers)
 	ofs.close();
 }
 
+vector<vector<double>> inverse::calc_A()
+{
+
+}

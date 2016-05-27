@@ -5,20 +5,19 @@
 #define M_PI 3.14159265358979323846
 #endif
 
-#include <cmath>
 #include "point.h"
 #include "vector3.h"
 
 class cube
 {
 public:
-	point * nodes[8];
+	point* nodes[8];
 	point barycenter;
 	vector3 p;
 	double mes;
 	cube();
 	void init();
-	vector3 calc_g(const point & m) const;
+	vector3 calc_g(const point& m) const;
 };
 
 #endif

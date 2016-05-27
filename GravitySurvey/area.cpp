@@ -1,6 +1,10 @@
 ﻿#include "area.h"
 
-vector3 area::calc_g(const point & m) const
+#include <iostream>
+#include <fstream>
+#include <string>
+
+vector3 area::calc_g(const point& m) const
 {
 	vector3 result(0, 0, 0);
 	for (size_t i = 0; i < cubes.size(); i++)
@@ -8,7 +12,7 @@ vector3 area::calc_g(const point & m) const
 	return result;
 }
 
-void area::generate(const string & filename)
+void area::generate(const string& filename)
 {
 	ifstream ifs(filename);
 	if (!ifs.good())

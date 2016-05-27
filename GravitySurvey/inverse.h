@@ -12,6 +12,7 @@ class inverse
 	vector<pair<point, vector3>> receivers;
 public:
 	void input(const string & fn_area, const string & fn_receivers);
+	vector<vector<double>> calc_A();
 };
 
 #endif

@@ -1,5 +1,7 @@
 ﻿#include "cube.h"
 
+#include <cmath>
+
 cube::cube()
 {
 	for (size_t i = 0; i < 8; i++)
@@ -16,7 +18,7 @@ void cube::init()
 	barycenter = point(nodes[0]->x + hx / 2.0, nodes[0]->y + hy / 2.0, nodes[0]->z + hz / 2.0);
 }
 
-vector3 cube::calc_g(const point & m) const
+vector3 cube::calc_g(const point& m) const
 {
 	double dx = m.x - barycenter.x, dy = m.y - barycenter.y, dz = m.z - barycenter.z;
 	double r = sqrt(dx * dx + dy * dy + dz * dz);

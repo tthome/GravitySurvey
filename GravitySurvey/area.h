@@ -1,13 +1,11 @@
 ﻿#ifndef AREA_H
 #define AREA_H
 
-#include <vector>
-#include <iostream>
-#include <fstream>
-#include <string>
 #include "point.h"
 #include "include.h"
 #include "cube.h"
+
+#include <vector>
 
 using namespace std;
 
