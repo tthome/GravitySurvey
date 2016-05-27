@@ -2,48 +2,49 @@
 #define VECTOR3_H
 
 template <typename T>
-class vector3_t;
-typedef vector3_t<double> vector3;
+class Vector3T;
+typedef Vector3T<double> Vector3;
 
 template <typename T>
-class vector3_t
+class Vector3T
 {
 public:
 	T x, y, z;
-	vector3_t();
+	Vector3T();
 	template <typename U, typename V, typename R>
-	vector3_t(U x, V y, R z);
-	vector3_t<T> operator +(const vector3_t<T>& v) const;
+	Vector3T(U x, V y, R z);
+	Vector3T<T> operator +(const Vector3T<T>& vector) const;
 	template <typename U>
-	friend vector3_t<U> operator *(const U& a, const vector3_t<U>& v);
+	friend Vector3T<U> operator *(const U& scalar, const Vector3T<U>& vector);
 };
 
 template <typename T>
-vector3_t<T>::vector3_t()
+Vector3T<T>::Vector3T()
 {
-	x = y = z = static_cast<T>(0);
+	x = y = z = T(0);
 }
 
 template <typename T>
 template <typename U, typename V, typename R>
-vector3_t<T>::vector3_t(U x, V y, R z)
+Vector3T<T>::Vector3T(U x, V y, R z)
 {
-	this->x = static_cast<T>(x);
-	this->y = static_cast<T>(y);
-	this->z = static_cast<T>(z);
+	this->x = T(x);
+	this->y = T(y);
+	this->z = T(z);
 }
 
 template <typename T>
-vector3_t<T> vector3_t<T>::operator+(const vector3_t<T>& v) const
+Vector3T<T> Vector3T<T>::operator+(const Vector3T<T>& vector) const
 {
-	return vector3_t<T>(x + v.x, y + v.y, z + v.z);
+	return Vector3T<T>(x + vector.x, y + vector.y, z + vector.z);
 }
 
 template <typename U>
-vector3_t<U> operator*(const U& a, const vector3_t<U>& v)
+Vector3T<U> operator*(const U& scalar, const Vector3T<U>& vector)
 {
-	return vector3_t<U>(a * v.x, a * v.y, a * v.z);
+	return Vector3T<U>(scalar * vector.x, scalar * vector.y, scalar * vector.z);
 }
 
-#endif
+#endif // VECTOR3_H
+
 

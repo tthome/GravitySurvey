@@ -1,9 +1,10 @@
-﻿#include "inverse.h"
+﻿#include "Inverse.h"
 
 int main()
 {
-	inverse inv;
-	inv.input("../area.txt", "../receivers.txt");
+	Inverse inverse;
+	inverse.input("../Area.txt", "../Receivers.txt");
+	inverse.calculate();
 	return 0;
 }
 

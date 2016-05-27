@@ -19,19 +19,19 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="area.cpp" />
-    <ClCompile Include="cube.cpp" />
-    <ClCompile Include="include.cpp" />
-    <ClCompile Include="inverse.cpp" />
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Area.cpp" />
+    <ClCompile Include="Cube.cpp" />
+    <ClCompile Include="Include.cpp" />
+    <ClCompile Include="Inverse.cpp" />
+    <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="area.h" />
-    <ClInclude Include="cube.h" />
-    <ClInclude Include="include.h" />
-    <ClInclude Include="inverse.h" />
-    <ClInclude Include="point.h" />
-    <ClInclude Include="vector3.h" />
+    <ClInclude Include="Area.h" />
+    <ClInclude Include="Cube.h" />
+    <ClInclude Include="Include.h" />
+    <ClInclude Include="Inverse.h" />
+    <ClInclude Include="Point.h" />
+    <ClInclude Include="Vector3.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{9429E203-68FD-4D2A-9E8F-A1046971EFA2}</ProjectGuid>

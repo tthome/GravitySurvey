@@ -5,20 +5,21 @@
 #define M_PI 3.14159265358979323846
 #endif
 
-#include "point.h"
-#include "vector3.h"
+#include "Point.h"
+#include "Vector3.h"
 
-class cube
+class Cube
 {
 public:
-	point* nodes[8];
-	point barycenter;
-	vector3 p;
-	double mes;
-	cube();
-	void init();
-	vector3 calc_g(const point& m) const;
+	Point* nodes[8];
+	Point barycenter;
+	Vector3 rho;
+	double volume;
+	Cube();
+	void initialize();
+	Vector3 computeG(const Point& receiverPoint) const;
 };
 
-#endif
+#endif // CUBE_H
+
 

@@ -1,19 +1,25 @@
 ﻿#ifndef INVERSE_H
 #define INVERSE_H
 
-#include <string>
-#include "area.h"
+#include "Area.h"
 
 using namespace std;
 
-class inverse
+class Inverse
 {
-	area a;
-	vector<pair<point, vector3>> receivers;
+	Area area;
+	vector<pair<Point, Vector3>> receivers;
+	int nCubes = 0, nReceivers = 0;
+
+	vector<vector<double>> matrixA;
+	vector<double> vectorB;
 public:
-	void input(const string & fn_area, const string & fn_receivers);
-	vector<vector<double>> calc_A();
+	void input(const string& areaPath, const string& receiversPath);
+	void makeMatrixA();
+	void makeVectorB();
+	void calculate();
 };
 
-#endif
+#endif // INVERSE_H
+
 

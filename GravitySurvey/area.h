@@ -1,22 +1,23 @@
 ﻿#ifndef AREA_H
 #define AREA_H
 
-#include "point.h"
-#include "include.h"
-#include "cube.h"
+#include "Point.h"
+#include "Include.h"
+#include "Cube.h"
 
 #include <vector>
 
 using namespace std;
 
-class area
+class Area
 {
 public:
-	vector<point> nodes;
-	vector<cube> cubes;
-	vector3 calc_g(const point & m) const;
-	void generate(const string & filename);
+	vector<Point> nodes;
+	vector<Cube> cubes;
+	Vector3 computeG(const Point& receiverPoint) const;
+	void generate(const string& path);
 };
 
-#endif
+#endif // AREA_H
+
 
