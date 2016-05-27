@@ -13,7 +13,7 @@ istream& operator>>(istream& is, Include& include)
 	is >> include.xMin >> include.xMax;
 	is >> include.yMin >> include.yMax;
 	is >> include.zMin >> include.zMax;
-	is >> include.rho.x >> include.rho.y >> include.rho.z;
+	is >> include.rho;
 	return is;
 }
 

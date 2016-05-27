@@ -30,6 +30,9 @@
     <ClCompile Include="Inverse.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Slae.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Point.h">
@@ -48,6 +51,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Inverse.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Slae.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

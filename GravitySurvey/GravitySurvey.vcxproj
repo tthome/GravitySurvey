@@ -24,6 +24,7 @@
     <ClCompile Include="Include.cpp" />
     <ClCompile Include="Inverse.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Slae.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Area.h" />
@@ -31,6 +32,7 @@
     <ClInclude Include="Include.h" />
     <ClInclude Include="Inverse.h" />
     <ClInclude Include="Point.h" />
+    <ClInclude Include="Slae.h" />
     <ClInclude Include="Vector3.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

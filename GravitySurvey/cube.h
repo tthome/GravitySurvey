@@ -13,8 +13,8 @@ class Cube
 public:
 	Point* nodes[8];
 	Point barycenter;
-	Vector3 rho;
 	double volume;
+	double rho;
 	Cube();
 	void initialize();
 	Vector3 computeG(const Point& receiverPoint) const;

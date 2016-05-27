@@ -9,7 +9,7 @@ Vector3 Area::computeG(const Point& receiverPoint) const
 	Vector3 result(0, 0, 0);
 	for (int i = 0; i < cubes.size(); i++)
 	{
-		result = result + cubes[i].computeG(receiverPoint); // Rho(k)* ??
+		result = result + cubes[i].rho * cubes[i].computeG(receiverPoint);
 	}
 	return result;
 }
