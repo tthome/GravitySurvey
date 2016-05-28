@@ -12,8 +12,10 @@ using namespace std;
 class Area
 {
 public:
+
 	vector<Point> nodes;
 	vector<Cube> cubes;
+
 	Vector3 computeG(const Point& receiverPoint) const;
 	void generate(const string& path);
 };

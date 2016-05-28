@@ -10,11 +10,15 @@ using namespace std;
 class Include
 {
 public:
+
 	double xMin, xMax;
 	double yMin, yMax;
 	double zMin, zMax;
+
 	double rho;
+
 	bool isInside(const Cube& cube) const;
+
 	friend istream& operator >>(istream& is, Include& include);
 };
 

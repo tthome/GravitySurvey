@@ -8,7 +8,10 @@ Cube::Cube()
 	{
 		nodes[i] = nullptr;
 	}
-	volume = 0;
+	for (int i = 0; i < 6; i++)
+	{
+		neighbors[i] = nullptr;
+	}
 }
 
 void Cube::initialize()
@@ -31,5 +34,20 @@ Vector3 Cube::computeG(const Point& receiverPoint) const
 	double gy = b * dy;
 	double gz = b * dz;
 	return Vector3(gx, gy, gz);
+}
+
+bool Cube::isNeighbor(const Cube& cube) const
+{
+	for (int i = 0; i < 6; i++)
+	{
+		if (neighbors[i])
+		{
+			if (neighbors[i]->id == cube.id)
+			{
+				return true;
+			}
+		}
+	}
+	return false;
 }
 

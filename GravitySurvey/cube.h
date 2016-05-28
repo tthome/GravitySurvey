@@ -11,13 +11,19 @@
 class Cube
 {
 public:
+
 	Point* nodes[8];
 	Point barycenter;
-	double volume;
-	double rho;
+	Cube* neighbors[6];
+
+	double volume = 0;
+	double rho = 0;
+	int id = 0;
+
 	Cube();
 	void initialize();
 	Vector3 computeG(const Point& receiverPoint) const;
+	bool isNeighbor(const Cube& cube) const;
 };
 
 #endif // CUBE_H

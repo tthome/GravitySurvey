@@ -83,6 +83,13 @@ void Area::generate(const string& path)
 						cubes[m].rho = includes[ii].rho;
 					}
 				}
+				if (i > 0) cubes[m].neighbors[0] = cubes.data() + ((i - 1) * nY + j) * nZ + k;
+				if (i < nX - 1) cubes[m].neighbors[1] = cubes.data() + ((i + 1) * nY + j) * nZ + k;
+				if (j > 0) cubes[m].neighbors[2] = cubes.data() + (i * nY + j - 1) * nZ + k;
+				if (j < nY - 1) cubes[m].neighbors[3] = cubes.data() + (i * nY + j + 1) * nZ + k;
+				if (k > 0) cubes[m].neighbors[4] = cubes.data() + (i * nY + j) * nZ + k - 1;
+				if (k < nZ - 1) cubes[m].neighbors[5] = cubes.data() + (i * nY + j) * nZ + k + 1;
+				cubes[m].id = m;
 				m++;
 			}
 		}

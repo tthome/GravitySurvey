@@ -1,17 +1,19 @@
 ﻿#include "Inverse.h"
+#include "Slae.h"
 
 #include <fstream>
+#include <iostream>
 
-void Inverse::input(const string& areaPath, const string& receiversPath)
+void Inverse::input(const string& areaPath, const string& receiversPath, const string& configPath)
 {
 	area.generate(areaPath);
-	nCubes = area.cubes.size();
 
 	ifstream ifs(receiversPath);
 	ofstream ofs("../xgz.txt");
+	int nReceivers;
 	ifs >> nReceivers;
 	receivers.resize(nReceivers);
-	for (int i = 0; i < nReceivers; i++)
+	for (int i = 0; i < receivers.size(); i++)
 	{
 		ifs >> receivers[i].first.x >> receivers[i].first.y >> receivers[i].first.z;
 		receivers[i].second = area.computeG(receivers[i].first);
@@ -20,45 +22,165 @@ void Inverse::input(const string& areaPath, const string& receiversPath)
 	ifs.close();
 	ofs.close();
 
-	matrixA.resize(nCubes);
-	for (int i = 0; i < matrixA.size(); i++)
+	ifs.open(configPath);
+	if (ifs.good())
 	{
-		matrixA[i].resize(nCubes);
+		ifs >> config;
+		ifs.close();
 	}
-
-	vectorB.resize(nCubes);
 }
 
-void Inverse::makeMatrixA()
+vector<vector<double>> Inverse::createA() const
 {
-	for (int q = 0; q < matrixA.size(); q++)
+	vector<vector<double>> a(area.cubes.size());
+	for (int q = 0; q < area.cubes.size(); q++)
 	{
-		for (int s = 0; s < matrixA[q].size(); s++)
+		a[q].resize(area.cubes.size());
+		for (int s = 0; s < area.cubes.size(); s++)
 		{
-			matrixA[q][s] = 0;
-			for (int i = 0; i < nReceivers; i++)
+			a[q][s] = 0;
+			for (int i = 0; i < receivers.size(); i++)
 			{
-				matrixA[q][s] += area.cubes[q].computeG(receivers[i].first).z * area.cubes[s].computeG(receivers[i].first).z;
+				a[q][s] += area.cubes[q].computeG(receivers[i].first).z * area.cubes[s].computeG(receivers[i].first).z;
 			}
 		}
 	}
+	return a;
 }
 
-void Inverse::makeVectorB()
+vector<double> Inverse::createB() const
 {
-	for (int q = 0; q < matrixA.size(); q++)
+	vector<double> b(area.cubes.size());
+	for (int q = 0; q < area.cubes.size(); q++)
 	{
-		vectorB[q] = 0;
-		for (int i = 0; i < nReceivers; i++)
+		b[q] = 0;
+		for (int i = 0; i < receivers.size(); i++)
 		{
-			vectorB[q] += area.cubes[q].computeG(receivers[i].first).z * receivers[i].second.z;
+			b[q] += area.cubes[q].computeG(receivers[i].first).z * receivers[i].second.z;
 		}
 	}
+	return b;
+}
+
+vector<vector<double>> Inverse::createC() const
+{
+	vector<vector<double>> c(area.cubes.size());
+	for (int i = 0; i < area.cubes.size(); i++)
+	{
+		c[i].resize(area.cubes.size());
+		for (int j = 0; j < area.cubes.size(); j++)
+		{
+			c[i][j] = 0;
+			if (i == j)
+			{
+				int count = 0;
+				double gammaSum = 0;
+				for (int k = 0; k < 6; k++)
+				{
+					if (area.cubes[i].neighbors[k])
+					{
+						count++;
+						gammaSum += gamma[area.cubes[i].neighbors[k]->id];
+					}
+				}
+				c[i][j] = gamma[i] * count + gammaSum;
+			}
+			else if (area.cubes[i].isNeighbor(area.cubes[j]))
+			{
+				c[i][j] = -(gamma[i] + gamma[j]);
+			}
+		}
+	}
+	return c;
+}
+
+double Inverse::computeF(const vector<double>& solution)
+{
+	for (int i = 0; i < area.cubes.size(); i++)
+	{
+		area.cubes[i].rho = solution[i];
+	}
+
+	double f = 0;
+	for (int i = 0; i < receivers.size(); i++)
+	{
+		double gr = receivers[i].second.z;
+		double ga = area.computeG(receivers[i].first).z;
+		f += pow(gr - ga, 2);
+	}
+	return f;
+}
+
+double Inverse::computeFr(const vector<double>& solution)
+{
+	double f = computeF(solution);
+
+	for (int k = 0; k < area.cubes.size(); k++)
+	{
+		f += alpha * pow(area.cubes[k].rho, 2);
+	}
+
+	for (int k = 0; k < area.cubes.size(); k++)
+	{
+		double sum = 0;
+		for (int m = 0; m < 6; m++)
+		{
+			if (area.cubes[k].neighbors[m])
+			{
+				sum += pow(area.cubes[k].rho - area.cubes[m].rho, 2);
+			}
+		}
+		f += gamma[k] * sum;
+	}
+
+	return f;
 }
 
 void Inverse::calculate()
 {
-	makeMatrixA();
-	makeVectorB();
+	cout << "Creating A.." << endl;
+	vector<vector<double>> a = createA();
+
+	cout << "Creating b.." << endl;
+	vector<double> b = createB();
+
+	cout << "Solving SLAE.." << endl;
+	vector<double> x = Slae::solveGauss(a, b);
+
+	double currentF, previousF;
+
+	if (config.useAlpha)
+	{
+		cout << "Alpha regularization.." << endl;
+		alpha = config.alphaStart;
+		currentF = previousF = computeF(x);
+		while (previousF * config.alphaCoeff >= currentF)
+		{
+			cout << scientific << "::Alpha:     " << alpha << endl;
+			cout << scientific << "::PreviousF: " << previousF << endl;
+			cout << scientific << "::CurrentF:  " << currentF << endl;
+			for (int i = 0; i < a.size(); i++)
+			{
+				a[i][i] += alpha;
+			}
+			x = Slae::solveGauss(a, b);
+			currentF = computeF(x);
+			alpha *= config.alphaStep;
+		}
+	}
+	else
+	{
+		alpha = 0;
+		currentF = previousF = computeF(x);
+	}
+
+	gamma.resize(area.cubes.size());
+	for (int i = 0; i < area.cubes.size(); i++)
+	{
+		gamma[i] = config.gammaStart;
+	}
+
+
+	vector<vector<double>> c = createC();
 }
 
