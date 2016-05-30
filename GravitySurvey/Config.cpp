@@ -5,11 +5,11 @@ Config::Config()
 	useAlpha = true;
 	useGamma = true;
 	alphaStart = 1e-10;
-	alphaStep = 2.0;
+	alphaStep = 1.5;
 	alphaCoeff = 10.0;
 	gammaStart = 1e-10;
 	gammaStep = 2.0;
-	gammaCoeff = 3.0;
+	gammaCoeff = 10.0;
 	gammaDiff = 1e-5;
 }
 

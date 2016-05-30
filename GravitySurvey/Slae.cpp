@@ -1,6 +1,6 @@
 ﻿#include "Slae.h"
 
-vector<double> Slae::solveGauss(const vector<vector<double>> a, const vector<double> b)
+vector<double> Slae::solveGauss(const vector<vector<double>>& a, const vector<double>& b)
 {
 	int size = b.size();
 

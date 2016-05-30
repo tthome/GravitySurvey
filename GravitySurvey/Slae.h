@@ -8,7 +8,7 @@ using namespace std;
 class Slae
 {
 public:
-	static vector<double> solveGauss(const vector<vector<double>> a, const vector<double> b);
+	static vector<double> solveGauss(const vector<vector<double>>& a, const vector<double>& b);
 };
 
 #endif // SLAE_H

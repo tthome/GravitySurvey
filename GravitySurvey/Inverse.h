@@ -21,7 +21,8 @@ class Inverse
 	vector<vector<double>> createC() const;
 
 	double computeF(const vector<double>& solution);
-	double computeFr(const vector<double>& solution);
+	double computeAlpha();
+	double computeGamma();
 
 public:
 

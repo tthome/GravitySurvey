@@ -111,15 +111,19 @@ double Inverse::computeF(const vector<double>& solution)
 	return f;
 }
 
-double Inverse::computeFr(const vector<double>& solution)
+double Inverse::computeAlpha()
 {
-	double f = computeF(solution);
-
+	double f = 0;
 	for (int k = 0; k < area.cubes.size(); k++)
 	{
 		f += alpha * pow(area.cubes[k].rho, 2);
 	}
+	return f;
+}
 
+double Inverse::computeGamma()
+{
+	double f = 0;
 	for (int k = 0; k < area.cubes.size(); k++)
 	{
 		double sum = 0;
@@ -127,12 +131,11 @@ double Inverse::computeFr(const vector<double>& solution)
 		{
 			if (area.cubes[k].neighbors[m])
 			{
-				sum += pow(area.cubes[k].rho - area.cubes[m].rho, 2);
+				sum += pow(area.cubes[k].rho - area.cubes[k].neighbors[m]->rho, 2);
 			}
 		}
 		f += gamma[k] * sum;
 	}
-
 	return f;
 }
 
@@ -154,33 +157,71 @@ void Inverse::calculate()
 		cout << "Alpha regularization.." << endl;
 		alpha = config.alphaStart;
 		currentF = previousF = computeF(x);
-		while (previousF * config.alphaCoeff >= currentF)
-		{
-			cout << scientific << "::Alpha:     " << alpha << endl;
-			cout << scientific << "::PreviousF: " << previousF << endl;
-			cout << scientific << "::CurrentF:  " << currentF << endl;
+		cout << scientific << "::PreviousF: " << previousF << endl;
+		while (currentF <= previousF * config.alphaCoeff)
+		{			
 			for (int i = 0; i < a.size(); i++)
 			{
 				a[i][i] += alpha;
 			}
 			x = Slae::solveGauss(a, b);
 			currentF = computeF(x);
-			alpha *= config.alphaStep;
+			cout << scientific << "::CurrentF: " << currentF << " " << currentF / previousF << endl;
+			if (currentF <= previousF * config.alphaCoeff)
+			{
+				alpha *= config.alphaStep;
+			}
 		}
+		cout << scientific << "::Alpha: " << alpha << endl;
 	}
 	else
 	{
 		alpha = 0;
-		currentF = previousF = computeF(x);
 	}
 
-	gamma.resize(area.cubes.size());
-	for (int i = 0; i < area.cubes.size(); i++)
+	if (config.useGamma)
 	{
-		gamma[i] = config.gammaStart;
+		cout << "Gamma regularization.." << endl;
+		gamma.resize(area.cubes.size());
+		for (int i = 0; i < gamma.size(); i++)
+		{
+			gamma[i] = config.gammaStart;
+		}
+		currentF = previousF = computeF(x) + computeAlpha();
+		cout << scientific << "::PreviousF: " << previousF << endl;
+		while (currentF <= previousF * config.gammaCoeff)
+		{
+			vector<vector<double>> c = createC();
+			for (int i = 0; i < a.size(); i++)
+			{
+				for (int j = 0; j < a[0].size(); j++)
+				{
+					a[i][i] += c[i][j];
+				}
+			}
+			x = Slae::solveGauss(a, b);
+			currentF = computeF(x) + computeAlpha();
+			cout << scientific << "::CurrentF: " << currentF << " " << currentF / previousF << endl;
+			if (currentF <= previousF * config.gammaCoeff)
+			{
+				for (int i = 0; i < gamma.size(); i++)
+				{
+					gamma[i] *= config.gammaStep;
+				}
+			}
+		}
+	}
+	else
+	{
+		gamma.resize(area.cubes.size());
+		for (int i = 0; i < gamma.size(); i++)
+		{
+			gamma[i] = 0;
+		}
 	}
 
-
-	vector<vector<double>> c = createC();
+	x = Slae::solveGauss(a, b);
+	currentF = computeF(x) + computeAlpha() + computeGamma();
+	cout << scientific << "Functional: " << currentF << endl;
 }
 
