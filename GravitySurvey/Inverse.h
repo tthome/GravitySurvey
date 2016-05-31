@@ -28,6 +28,7 @@ public:
 
 	void input(const string& areaPath, const string& receiversPath, const string& configPath);
 	void calculate();
+	void printSolution(const string& path);
 };
 
 #endif // INVERSE_H

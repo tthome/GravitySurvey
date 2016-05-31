@@ -9,7 +9,7 @@ void Inverse::input(const string& areaPath, const string& receiversPath, const s
 	area.generate(areaPath);
 
 	ifstream ifs(receiversPath);
-	ofstream ofs("../xgz.txt");
+	ofstream ofs("../Analytical.txt");
 	int nReceivers;
 	ifs >> nReceivers;
 	receivers.resize(nReceivers);
@@ -150,6 +150,8 @@ void Inverse::calculate()
 	cout << "Solving SLAE.." << endl;
 	vector<double> x = Slae::solveGauss(a, b);
 
+	vector<vector<double>> a1(a);
+
 	double currentF, previousF;
 
 	if (config.useAlpha)
@@ -159,12 +161,12 @@ void Inverse::calculate()
 		currentF = previousF = computeF(x);
 		cout << scientific << "::PreviousF: " << previousF << endl;
 		while (currentF <= previousF * config.alphaCoeff)
-		{			
-			for (int i = 0; i < a.size(); i++)
+		{
+			for (int i = 0; i < a1.size(); i++)
 			{
-				a[i][i] += alpha;
+				a1[i][i] += alpha;
 			}
-			x = Slae::solveGauss(a, b);
+			x = Slae::solveGauss(a1, b);
 			currentF = computeF(x);
 			cout << scientific << "::CurrentF: " << currentF << " " << currentF / previousF << endl;
 			if (currentF <= previousF * config.alphaCoeff)
@@ -182,25 +184,27 @@ void Inverse::calculate()
 	if (config.useGamma)
 	{
 		cout << "Gamma regularization.." << endl;
+		x = Slae::solveGauss(a, b);
+		a1 = a;
 		gamma.resize(area.cubes.size());
 		for (int i = 0; i < gamma.size(); i++)
 		{
 			gamma[i] = config.gammaStart;
 		}
-		currentF = previousF = computeF(x) + computeAlpha();
+		currentF = previousF = computeF(x);
 		cout << scientific << "::PreviousF: " << previousF << endl;
 		while (currentF <= previousF * config.gammaCoeff)
 		{
 			vector<vector<double>> c = createC();
-			for (int i = 0; i < a.size(); i++)
+			for (int i = 0; i < a1.size(); i++)
 			{
-				for (int j = 0; j < a[0].size(); j++)
+				for (int j = 0; j < a1[0].size(); j++)
 				{
-					a[i][i] += c[i][j];
+					a1[i][i] += c[i][j];
 				}
 			}
-			x = Slae::solveGauss(a, b);
-			currentF = computeF(x) + computeAlpha();
+			x = Slae::solveGauss(a1, b);
+			currentF = computeF(x);
 			cout << scientific << "::CurrentF: " << currentF << " " << currentF / previousF << endl;
 			if (currentF <= previousF * config.gammaCoeff)
 			{
@@ -221,7 +225,67 @@ void Inverse::calculate()
 	}
 
 	x = Slae::solveGauss(a, b);
+	currentF = computeF(x);
+	cout << scientific << "Functional [STD]: " << currentF << endl;
+	for (int i = 0; i < a.size(); i++)
+	{
+		a[i][i] += alpha;
+	}
+	vector<vector<double>> c = createC();
+	for (int i = 0; i < a.size(); i++)
+	{
+		for (int j = 0; j < a[0].size(); j++)
+		{
+			a[i][i] += c[i][j];
+		}
+	}
+	x = Slae::solveGauss(a, b);
 	currentF = computeF(x) + computeAlpha() + computeGamma();
-	cout << scientific << "Functional: " << currentF << endl;
+	cout << scientific << "Functional [REG]: " << currentF << endl;
+
+	for (int i = 0; i < area.cubes.size(); i++)
+	{
+		area.cubes[i].rho = x[i];
+	}
+	ofstream ofs("../Calculated.txt");
+	if (ofs.good())
+	{
+		for (int i = 0; i < receivers.size(); i++)
+		{
+			ofs << receivers[i].first.x << "\t" << area.computeG(receivers[i].first).z << endl;
+		}
+		ofs.close();
+	}
+
+	printSolution("../Solition.txt");
+}
+
+void Inverse::printSolution(const string& path)
+{
+	ofstream ofs(path);
+	if (ofs.good())
+	{
+		Cube startCube = area.cubes[0];
+		while (true)
+		{
+			Cube lineCube = startCube;
+			while (true)
+			{
+				ofs << scientific << lineCube.rho << "\t";
+				if (lineCube.neighbors[1])
+				{
+					lineCube = *lineCube.neighbors[1];
+				}
+				else break;
+			}
+			ofs << endl;
+			if (startCube.neighbors[5])
+			{
+				startCube = *startCube.neighbors[5];
+			}
+			else break;
+		}
+		ofs.close();
+	}
 }
 
