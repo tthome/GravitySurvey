@@ -9,7 +9,7 @@ void Inverse::input(const string& areaPath, const string& receiversPath, const s
 	area.generate(areaPath);
 
 	ifstream ifs(receiversPath);
-	ofstream ofs("../Analytical.txt");
+	ofstream ofs("../../../Analytical.txt");
 	int nReceivers;
 	ifs >> nReceivers;
 	receivers.resize(nReceivers);
@@ -247,7 +247,7 @@ void Inverse::calculate()
 	{
 		area.cubes[i].rho = x[i];
 	}
-	ofstream ofs("../Calculated.txt");
+	ofstream ofs("../../../Calculated.txt");
 	if (ofs.good())
 	{
 		for (int i = 0; i < receivers.size(); i++)
@@ -257,7 +257,7 @@ void Inverse::calculate()
 		ofs.close();
 	}
 
-	printSolution("../Solition.txt");
+	printSolution("../../../Solition.txt");
 }
 
 void Inverse::printSolution(const string& path)
