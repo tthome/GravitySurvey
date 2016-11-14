@@ -257,7 +257,7 @@ void Inverse::calculate()
 		ofs.close();
 	}
 
-	printSolution("../../../Solition.txt");
+	printSolution("../../../Solution.txt");
 }
 
 void Inverse::printSolution(const string& path)

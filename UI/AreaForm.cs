@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using System.Windows.Forms;
 
 namespace UI
@@ -15,6 +9,35 @@ namespace UI
         public AreaForm()
         {
             InitializeComponent();
+        }
+
+        private void OpenToolStripMenuItemClick(object sender, EventArgs e)
+        {
+            var openFileDialog = new OpenFileDialog
+            {
+                InitialDirectory = Path.GetFullPath(Path.Combine(Application.ExecutablePath, @"..\..\..\..\"))
+            };
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                ShowArea(openFileDialog.FileName);    
+            }
+        }
+
+        private void ShowArea(string path)
+        {
+            using (var reader = new StreamReader(path))
+            {
+                var line = reader.ReadLine();
+                while (!string.IsNullOrWhiteSpace(line))
+                {
+                    var strings = line.Split(' ');
+                    foreach (var s in strings)
+                    {
+                        dataGridView1.Ce
+                    }
+                    line = reader.ReadLine();
+                }
+            }
         }
     }
 }
