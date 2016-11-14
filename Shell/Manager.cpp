@@ -1,9 +1,9 @@
-#include "stdafx.h"
+#include "Stdafx.h"
 
-#include "Core.h"
+#include "Manager.h"
 #include "Inverse.h"
 
-namespace Core
+namespace Wrapper
 {
 	void Manager::Run()
 	{

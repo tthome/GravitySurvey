@@ -1,5 +1,5 @@
 ﻿using System.Windows.Forms;
-using Core;
+using Wrapper;
 
 namespace UI
 {
@@ -9,7 +9,6 @@ namespace UI
         {
             InitializeComponent();
 
-            var manager = new Core.Manager();
             Manager.Run();
         }
     }

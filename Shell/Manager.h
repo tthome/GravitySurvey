@@ -1,9 +1,9 @@
-#ifndef CORE_H
-#define CORE_H
+#ifndef MANAGER_H
+#define MANAGER_H
 
 using namespace System;
 
-namespace Core
+namespace Wrapper
 {
 	public ref class Manager
 	{
@@ -12,4 +12,4 @@ namespace Core
 	};
 }
 
-#endif // CORE_H
+#endif // MANAGER_H
