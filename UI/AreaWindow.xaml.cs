@@ -42,7 +42,7 @@ namespace UI
                     {
                         Text = values[row][column].ToString("E2"),
                         Background = new SolidColorBrush(
-                            Color.FromRgb((byte) (250*percent), (byte) (255*percent), 255))
+                            Color.FromArgb((byte) (255*percent), 39, 174, 96))
                     };
                     Grid.SetRow(textBlock, row);
                     Grid.SetColumn(textBlock, column);

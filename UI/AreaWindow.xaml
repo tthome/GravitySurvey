@@ -13,16 +13,16 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <Menu>
-            <MenuItem
-                Header="File">
+            <MenuItem Header="File">
                 <MenuItem
                     Header="Open"
                     Click="FileOpen_OnClick" />
             </MenuItem>
         </Menu>
-        <Grid
-            x:Name="AreaGrid"
-            Grid.Row="1">
-        </Grid>
+        <ScrollViewer
+            Grid.Row="1"
+            HorizontalScrollBarVisibility="Visible">
+            <Grid x:Name="AreaGrid" />
+        </ScrollViewer>
     </Grid>
 </Window>

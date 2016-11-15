@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using Wrapper;
 
 namespace UI
 {
@@ -8,7 +7,6 @@ namespace UI
         public MainWindow()
         {
             InitializeComponent();
-            Manager.Run();
         }
 
         private void MenuItem_OnClick(object sender, RoutedEventArgs e)
