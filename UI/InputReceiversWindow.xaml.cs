@@ -17,6 +17,7 @@ namespace UI
         private void GenerateReceivers_OnClick(object sender, RoutedEventArgs e)
         {
             var receiverCount = Convert.ToInt32(ReceiversCount.Text);
+
             var Beg_x = Convert.ToDouble(BeginX.Text);
             var Beg_y = Convert.ToDouble(BeginY.Text);
             var Beg_z = Convert.ToDouble(BeginZ.Text);
