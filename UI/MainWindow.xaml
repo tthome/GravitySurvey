@@ -17,7 +17,14 @@
                 Click="MenuItem_OnClick" />
         </Menu>
         <Grid Grid.Row="1">
-           
+            <StackPanel Orientation="Horizontal">
+            <Button
+                Content="Ввод области"
+                Click="InputAreaButton_Click" />
+                <Button
+                Content="Ввод приемников"
+                Click="InputReceiversButton_Click" />
+            </StackPanel>
         </Grid>
     </Grid>
 </Window>

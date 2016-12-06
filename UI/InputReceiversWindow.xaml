@@ -1,0 +1,114 @@
+﻿<Window
+    x:Class="UI.InputReceiversWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="InputReceiversWindow" Height="300" Width="300">
+    <StackPanel>
+        <GroupBox
+            Header="Параметры приемников"
+            Margin="5">
+            <Grid
+                Margin="0,5,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="80" />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Text="X"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom" />
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    Text="Y"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom" />
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="3"
+                    Text="Z"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom" />
+                <TextBlock
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Text="Начало"
+                    VerticalAlignment="Center"
+                    Margin="5" />
+                <TextBox
+                    Name="BeginX"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Text="-1995"
+                    Margin="5" />
+                <TextBox
+                    Name="BeginY"
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Text="0"
+                    Margin="5" />
+                <TextBox
+                    Name="BeginZ"
+                    Grid.Row="1"
+                    Grid.Column="3"
+                    Text="0"
+                    Margin="5" />
+                <TextBlock
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Text="Конец"
+                    VerticalAlignment="Center"
+                    Margin="5" />
+                <TextBox
+                    Name="EndX"
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Text="6000"
+                    Margin="5" />
+                <TextBox
+                    Name="EndY"
+                    Grid.Row="2"
+                    Grid.Column="2"
+                    Text="0"
+                    Margin="5" />
+                <TextBox
+                    Name="EndZ"
+                    Grid.Row="2"
+                    Grid.Column="3"
+                    Text="0"
+                    Margin="5" />
+                <TextBlock
+                    Grid.Row="3"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Text="Количество приемников"
+                    Margin="5,10,0,5" />
+                <TextBox
+                    Name="ReceiversCount"
+                    Grid.Row="3"
+                    Grid.Column="2"
+                    Grid.ColumnSpan="2"
+                    Text="800"
+                    Margin="5,10,5,5" />
+            </Grid>
+        </GroupBox>
+        <Button 
+            Content="Генерировать"
+            Margin="5"
+            Click="GenerateReceivers_OnClick"/>
+    </StackPanel>
+
+</Window>
