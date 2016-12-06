@@ -23,8 +23,7 @@ namespace UI
             var End_x = Convert.ToDouble(EndX.Text);
             var End_y = Convert.ToDouble(EndY.Text);
             var End_z = Convert.ToDouble(EndZ.Text);
-
-
+            
             var hx = (End_x - Beg_x)/receiverCount;
             var hy = (End_y - Beg_y)/receiverCount;
             var hz = (End_z - Beg_z)/receiverCount;
