@@ -27,6 +27,9 @@ class Inverse
 public:
 
 	void input(const string& areaPath, const string& receiversPath, const string& configPath);
+	void inputArea(const string& path);
+	void inputReceivers(const string& path);
+	void inputConfig(const string& path);
 	void calculate();
 	void printSolution(const string& path);
 };
