@@ -5,7 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Title="InputReceiversWindow" Height="300" Width="300">
+    Title="Ввод приемников" Height="220" Width="300">
     <StackPanel>
         <GroupBox
             Header="Параметры приемников"
@@ -28,18 +28,21 @@
                     Grid.Row="0"
                     Grid.Column="1"
                     Text="X"
+                    FontWeight="SemiBold"
                     HorizontalAlignment="Center"
-                    VerticalAlignment="Bottom" />
+                    VerticalAlignment="Bottom"  />
                 <TextBlock
                     Grid.Row="0"
                     Grid.Column="2"
                     Text="Y"
+                    FontWeight="SemiBold"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Bottom" />
                 <TextBlock
                     Grid.Row="0"
                     Grid.Column="3"
                     Text="Z"
+                    FontWeight="SemiBold"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Bottom" />
                 <TextBlock
@@ -105,7 +108,12 @@
                     Margin="5,10,5,5" />
             </Grid>
         </GroupBox>
-        <Button 
+        <Button
+            BorderThickness="2" 
+            Background="#FFECF0F1"
+            BorderBrush="#FF34495E"
+            Padding="5,0,5,2"
+            FontSize="14"
             Content="Генерировать"
             Margin="5"
             Click="GenerateReceivers_OnClick"/>
