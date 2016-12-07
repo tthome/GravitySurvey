@@ -5,23 +5,35 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Title="AreaWindow" Height="300" Width="300">
+    Title="Область" Height="300" Width="300">
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Menu>
-            <MenuItem Header="File">
+        <!--<Menu Background="#FFECF0F1">
+            <MenuItem Header="Файл" Padding="6,0,6,2">
                 <MenuItem
-                    Header="Open"
+                    Header="Открыть"
                     Click="FileOpen_OnClick" />
             </MenuItem>
-        </Menu>
+        </Menu>-->
+        <Grid Background="#FFECF0F1" Grid.Row="0">
+            <Button
+                BorderThickness="2" 
+                Background="#FFECF0F1"
+                BorderBrush="#FF34495E"
+                Padding="5,0,5,2"
+                FontSize="14"
+                Margin="5"
+                Click="FileOpen_OnClick"
+                HorizontalAlignment="Left"
+                Content="Открыть из файла"/>
+        </Grid>
         <ScrollViewer
             Grid.Row="1"
-            HorizontalScrollBarVisibility="Visible">
+            HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
             <Grid x:Name="AreaGrid" />
         </ScrollViewer>
     </Grid>

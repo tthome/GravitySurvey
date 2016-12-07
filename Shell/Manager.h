@@ -17,7 +17,7 @@ namespace Shell
 		void InputArea(String^ path);
 
 	private:
-		Inverse inverse;
+//		Inverse inverse;
 	};
 }
 
