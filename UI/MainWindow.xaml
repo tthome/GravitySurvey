@@ -4,27 +4,52 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:oxy="http://oxyplot.org/wpf"
+    xmlns:ui="clr-namespace:UI"
     mc:Ignorable="d"
-    Title="MainWindow" Height="350" Width="525">
-    <Grid>
+    Title="MainWindow" Height="350" Width="525"
+    Loaded="MainWindow_OnLoaded">
+    
+   <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="89*"/>
+            <ColumnDefinition Width="170*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Menu>
+        <Menu Grid.ColumnSpan="2">
             <MenuItem
                 Header="Area"
                 Click="MenuItem_OnClick" />
         </Menu>
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" Grid.ColumnSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal">
-            <Button
+                <Button
                 Content="Ввод области"
-                Click="InputAreaButton_Click" />
+                Click="InputAreaButton_Click"
+                Margin="5"/>
                 <Button
                 Content="Ввод приемников"
-                Click="InputReceiversButton_Click" />
+                Click="InputReceiversButton_Click" 
+                    Margin="5"/>
+                <Button
+                Content="Решение"
+                Click="SolutionButton_Click"
+                    Margin="5"/>
+                
             </StackPanel>
+        <Grid Grid.Row="1">
+                <oxy:PlotView Name="PlotView"  Model="{Binding MyModel}"/>
         </Grid>
-    </Grid>
+
+        </Grid>
+      </Grid>
+   
 </Window>
