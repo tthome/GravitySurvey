@@ -6,9 +6,19 @@
 
 void Inverse::input(const string& areaPath, const string& receiversPath, const string& configPath)
 {
-	area.generate(areaPath);
+	inputArea(areaPath);
+	inputReceivers(receiversPath);
+	inputConfig(configPath);	
+}
 
-	ifstream ifs(receiversPath);
+void Inverse::inputArea(const string& path)
+{
+	area.generate(path);
+}
+
+void Inverse::inputReceivers(const string& path)
+{
+	ifstream ifs(path);
 	ofstream ofs("../../../Analytical.txt");
 	int nReceivers;
 	ifs >> nReceivers;
@@ -21,8 +31,11 @@ void Inverse::input(const string& areaPath, const string& receiversPath, const s
 	}
 	ifs.close();
 	ofs.close();
+}
 
-	ifs.open(configPath);
+void Inverse::inputConfig(const string& path)
+{
+	ifstream ifs(path);
 	if (ifs.good())
 	{
 		ifs >> config;
