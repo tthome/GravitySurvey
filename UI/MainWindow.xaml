@@ -5,12 +5,11 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:oxy="http://oxyplot.org/wpf"
-    xmlns:ui="clr-namespace:UI"
     mc:Ignorable="d"
     Title="MainWindow"
-    Height="375"
-    MinHeight="300"
-    Width="572"
+    MinWidth="640"
+    MinHeight="480"
+    SizeToContent="WidthAndHeight"
     Loaded="MainWindow_OnLoaded">
 
     <Grid>
@@ -22,61 +21,116 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" Background="#FFECF0F1">
-            <StackPanel Orientation="Horizontal" Margin="5,0">
-                <Button
-                    BorderThickness="2"
-                    Background="{x:Null}"
-                    BorderBrush="#FF34495E"
-                    Padding="5,0,5,2"
-                    FontSize="14"
-                    Content="Ввод области"
-                    Click="InputAreaButton_Click"
-                    Margin="5" />
-                <Button
-                    BorderThickness="2"
-                    Background="{x:Null}"
-                    BorderBrush="#FF34495E"
-                    Padding="5,0,5,2"
-                    FontSize="14"
-                    Content="Ввод приемников"
-                    Click="InputReceiversButton_Click"
-                    Margin="5" />
-                <Button
-                    BorderThickness="2"
-                    BorderBrush="#FF34495E"
-                    Padding="5,0,5,2"
-                    FontSize="14"
-                    Content="Решение"
-                    Click="SolutionButton_Click"
-                    Margin="5"
-                    Background="{x:Null}" />
-            </StackPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <GroupBox
+                Grid.Row="0"
+                Grid.Column="0"
+                Header="Управление"
+                Margin="5">
+                <StackPanel Orientation="Vertical">
+                    <Button
+                        Padding="5,0,5,2"
+                        Content="Ввод области"
+                        Click="InputAreaButton_Click"
+                        Margin="5" />
+                    <Button
+                        Padding="5,0,5,2"
+                        Content="Ввод приемников"
+                        Click="InputReceiversButton_Click"
+                        Margin="5" />
+                    <Button
+                        Padding="5,0,5,2"
+                        Content="Решение"
+                        Click="SolutionButton_Click"
+                        Margin="5" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox
+                Grid.Row="0"
+                Grid.Column="1"
+                Header="Параметры регуляризации"
+                Margin="5">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel
+                        Grid.Column="0">
+                        <CheckBox
+                            Name="UseAlphaCheckBox"
+                            Content="Альфа"
+                            Margin="5" />
+                        <StackPanel
+                            IsEnabled="{Binding ElementName=UseAlphaCheckBox, Path=IsChecked}">
+                            <TextBlock
+                                Text="Начальное значение"
+                                Margin="5,5,5,0" />
+                            <TextBox
+                                Name="AlphaStartTextBox"
+                                Text="1e-10"
+                                Margin="5,0" />
+                            <TextBlock
+                                Text="Шаг"
+                                Margin="5,5,5,0" />
+                            <TextBox
+                                Text="1.5"
+                                Name="AlphaStepTextBox"
+                                Margin="5,0" />
+                            <TextBlock
+                                Text="Коэффициент"
+                                Margin="5,5,5,0" />
+                            <TextBox
+                                Text="10"
+                                Name="AlphaCoeffTextBox"
+                                Margin="5,0" />
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel
+                        Grid.Column="1">
+                        <CheckBox
+                            Name="UseGammaCheckBox"
+                            Content="Гамма"
+                            Margin="5" />
+                        <StackPanel
+                            IsEnabled="{Binding ElementName=UseGammaCheckBox, Path=IsChecked}">
+                            <TextBlock
+                                Text="Начальное значение"
+                                Margin="5,5,5,0" />
+                            <TextBox
+                                Text="1e-10"
+                                Name="GammaStartTextBox"
+                                Margin="5,0" />
+                            <TextBlock
+                                Text="Шаг"
+                                Margin="5,5,5,0" />
+                            <TextBox
+                                Text="2"
+                                Name="GammaStepTextBox"
+                                Margin="5,0" />
+                            <TextBlock
+                                Text="Коэффициент"
+                                Margin="5,5,5,0" />
+                            <TextBox
+                                Text="10"
+                                Name="GammaCoeffTextBox"
+                                Margin="5,0" />
+                            <TextBlock
+                                Text="Какая-то херня"
+                                Margin="5,5,5,0" />
+                            <TextBox
+                                Text="1e-5"
+                                Name="GammaDiffTextBox"
+                                Margin="5,0,5,5" />
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </GroupBox>
         </Grid>
-
-        <StackPanel VerticalAlignment="Top" Grid.Row="1" Background="#FFECF0F1">
-            <StackPanel Margin="10,0" Orientation="Horizontal">
-                <TextBlock x:Name="label" Text="Регулязация по альфа" />
-                <CheckBox x:Name="checkBox" Margin="4,0,16,0" VerticalAlignment="Center" />
-                <TextBlock x:Name="labe2" Text="Альфа0" />
-                <TextBox x:Name="textBox" Text="" Width="46" Margin="4,0,16,0" />
-                <TextBlock x:Name="labe3" Text="шаг" />
-                <TextBox x:Name="textBox1" Text="" Width="28" Margin="4,0,16,0" />
-                <TextBlock x:Name="labe4" Text="коэффициент" />
-                <TextBox x:Name="textBox2" Text="" Width="46" Margin="4,0" />
-            </StackPanel>
-
-            <StackPanel Margin="10,5" Orientation="Horizontal">
-                <TextBlock x:Name="labe5" Text="Регулязация по гамма" />
-                <CheckBox x:Name="checkBox1" Margin="4,0,16,0" VerticalAlignment="Center" />
-                <TextBlock x:Name="labe6" Text="Альфа0" />
-                <TextBox x:Name="textBox3" Text="" Width="46" Margin="4,0,16,0" />
-                <TextBlock x:Name="labe7" Text="шаг" />
-                <TextBox x:Name="textBox4" Text="" Width="28" Margin="4,0,16,0" />
-                <TextBlock x:Name="labe8" Text="коэффициент" />
-                <TextBox x:Name="textBox5" Text="" Width="46" Margin="4,0,16,0" />
-            </StackPanel>
-        </StackPanel>
 
         <!--1 plot-->
         <Grid Margin="5" Grid.Row="2">
