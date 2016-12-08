@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -32,19 +33,19 @@ namespace UI
             //new Area1Window().Show();
         }
 
-        private void InputAreaButton_Click(object sender, RoutedEventArgs e)
+        private void InputAreaButton_OnClick(object sender, RoutedEventArgs e)
         {
             new AreaWindow().Show();
         }
 
-        private void InputReceiversButton_Click(object sender, RoutedEventArgs e)
+        private void InputReceiversButton_OnClick(object sender, RoutedEventArgs e)
         {
-            new InputReceiversWindow().Show();
+            new ReceiversWindow().Show();
         }
 
-        private void SolutionButton_Click(object sender, RoutedEventArgs e)
+        private void SolutionButton_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            Simulation.Calculate();
         }
 
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
@@ -100,6 +101,91 @@ namespace UI
                 }
             }
             return list;
+        }
+
+        private void OpenConfigButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var fileDialog = new OpenFileDialog
+            {
+                FileName = "Config",
+                DefaultExt = "txt"
+            };
+
+            if (fileDialog.ShowDialog() == true)
+            {
+                using (var reader = new StreamReader(fileDialog.OpenFile(), Encoding.Default))
+                {
+                    var line = reader.ReadLine();
+                    if (line != null)
+                    {
+                        var strings = line.Split(' ', '\t');
+                        UseAlphaCheckBox.IsChecked = Convert.ToBoolean(Convert.ToInt32(strings[0]));
+                        UseGammaCheckBox.IsChecked = Convert.ToBoolean(Convert.ToInt32(strings[1]));
+
+                        AlphaStartTextBox.Text =
+                            Convert.ToDouble(reader.ReadLine(), CultureInfo.InvariantCulture)
+                                .ToString("G", CultureInfo.InvariantCulture);
+                        AlphaStepTextBox.Text =
+                            Convert.ToDouble(reader.ReadLine(), CultureInfo.InvariantCulture)
+                                .ToString("G", CultureInfo.InvariantCulture);
+                        AlphaCoeffTextBox.Text =
+                            Convert.ToDouble(reader.ReadLine(), CultureInfo.InvariantCulture)
+                                .ToString("G", CultureInfo.InvariantCulture);
+
+                        GammaStartTextBox.Text =
+                            Convert.ToDouble(reader.ReadLine(), CultureInfo.InvariantCulture)
+                                .ToString("G", CultureInfo.InvariantCulture);
+                        GammaStepTextBox.Text =
+                            Convert.ToDouble(reader.ReadLine(), CultureInfo.InvariantCulture)
+                                .ToString("G", CultureInfo.InvariantCulture);
+                        GammaCoeffTextBox.Text =
+                            Convert.ToDouble(reader.ReadLine(), CultureInfo.InvariantCulture)
+                                .ToString("G", CultureInfo.InvariantCulture);
+                        GammaDiffTextBox.Text =
+                            Convert.ToDouble(reader.ReadLine(), CultureInfo.InvariantCulture)
+                                .ToString("G", CultureInfo.InvariantCulture);
+                    }
+                }
+
+                Simulation.ConfigPath = fileDialog.FileName;
+            }
+        }
+
+        private void SaveConfigButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var useAlpha = UseAlphaCheckBox.IsChecked == true ? 1 : 0;
+            var alphaStart = Convert.ToDouble(AlphaStartTextBox.Text, CultureInfo.InvariantCulture);
+            var alphaStep = Convert.ToDouble(AlphaStepTextBox.Text, CultureInfo.InvariantCulture);
+            var alphaCoeff = Convert.ToDouble(AlphaCoeffTextBox.Text, CultureInfo.InvariantCulture);
+
+            var useGamma = UseGammaCheckBox.IsChecked == true ? 1 : 0;
+            var gammaStart = Convert.ToDouble(GammaStartTextBox.Text, CultureInfo.InvariantCulture);
+            var gammaStep = Convert.ToDouble(GammaStepTextBox.Text, CultureInfo.InvariantCulture);
+            var gammaCoeff = Convert.ToDouble(GammaCoeffTextBox.Text, CultureInfo.InvariantCulture);
+            var gammaDiff = Convert.ToDouble(GammaDiffTextBox.Text, CultureInfo.InvariantCulture);
+
+            var fileDialog = new SaveFileDialog
+            {
+                FileName = "Config",
+                DefaultExt = "txt"
+            };
+
+            if (fileDialog.ShowDialog() == true)
+            {
+                using (var writer = new StreamWriter(fileDialog.OpenFile(), Encoding.Default))
+                {
+                    writer.WriteLine(useAlpha + " " + useGamma);
+                    writer.WriteLine(alphaStart.ToString(CultureInfo.InvariantCulture));
+                    writer.WriteLine(alphaStep.ToString(CultureInfo.InvariantCulture));
+                    writer.WriteLine(alphaCoeff.ToString(CultureInfo.InvariantCulture));
+                    writer.WriteLine(gammaStart.ToString(CultureInfo.InvariantCulture));
+                    writer.WriteLine(gammaStep.ToString(CultureInfo.InvariantCulture));
+                    writer.WriteLine(gammaCoeff.ToString(CultureInfo.InvariantCulture));
+                    writer.WriteLine(gammaDiff.ToString(CultureInfo.InvariantCulture));
+                }
+
+                Simulation.ConfigPath = fileDialog.FileName;
+            }
         }
     }
 }

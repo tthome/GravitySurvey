@@ -31,9 +31,27 @@ namespace Shell
 
 	void InverseM::InputArea(String^ path)
 	{
-		Console::WriteLine("InputArea");
 		string s;
 		MarshalString(path, s);
 		inverse->inputArea(s);
 	}	
+
+	void InverseM::InputReceivers(String^ path)
+	{
+		string s;
+		MarshalString(path, s);
+		inverse->inputReceivers(s);
+	}
+
+	void InverseM::InputConfig(String^ path)
+	{
+		string s;
+		MarshalString(path, s);
+		inverse->inputConfig(s);
+	}
+
+	void InverseM::Calculate()
+	{
+		inverse->calculate();
+	}
 }

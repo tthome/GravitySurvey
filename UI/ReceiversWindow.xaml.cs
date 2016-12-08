@@ -7,9 +7,9 @@ using Microsoft.Win32;
 
 namespace UI
 {
-    public partial class InputReceiversWindow
+    public partial class ReceiversWindow
     {
-        public InputReceiversWindow()
+        public ReceiversWindow()
         {
             InitializeComponent();
         }
@@ -31,14 +31,14 @@ namespace UI
 
         private void GenerateReceivers_OnClick(object sender, RoutedEventArgs e)
         {
-            var receiversCount = Convert.ToInt32(ReceiversCountTextBox.Text);
+            var receiversCount = Convert.ToInt32(ReceiversCountTextBox.Text, CultureInfo.InvariantCulture);
 
-            var beginX = Convert.ToDouble(BeginX.Text);
-            var beginY = Convert.ToDouble(BeginY.Text);
-            var beginZ = Convert.ToDouble(BeginZ.Text);
-            var endX = Convert.ToDouble(EndX.Text);
-            var endY = Convert.ToDouble(EndY.Text);
-            var endZ = Convert.ToDouble(EndZ.Text);
+            var beginX = Convert.ToDouble(BeginX.Text, CultureInfo.InvariantCulture);
+            var beginY = Convert.ToDouble(BeginY.Text, CultureInfo.InvariantCulture);
+            var beginZ = Convert.ToDouble(BeginZ.Text, CultureInfo.InvariantCulture);
+            var endX = Convert.ToDouble(EndX.Text, CultureInfo.InvariantCulture);
+            var endY = Convert.ToDouble(EndY.Text, CultureInfo.InvariantCulture);
+            var endZ = Convert.ToDouble(EndZ.Text, CultureInfo.InvariantCulture);
 
             var hx = (endX - beginX)/receiversCount;
             var hy = (endY - beginY)/receiversCount;
@@ -64,9 +64,9 @@ namespace UI
                                          y.ToString(CultureInfo.InvariantCulture) + " " +
                                          z.ToString(CultureInfo.InvariantCulture));
                     }
-                    Simulation.ReceiversPath = fileDialog.FileName;
-                    OkButton.IsEnabled = true;
                 }
+                Simulation.ReceiversPath = fileDialog.FileName;
+                OkButton.IsEnabled = true;
             }
         }
 

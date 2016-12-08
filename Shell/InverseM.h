@@ -16,6 +16,9 @@ namespace Shell
 		InverseM();
 		~InverseM();
 		void InputArea(String^ path);
+		void InputReceivers(String^ path);
+		void InputConfig(String^ path);
+		void Calculate();
 	};
 }
 

@@ -1,23 +1,43 @@
-﻿using Shell;
+﻿using System.Windows;
+using Shell;
 
 namespace UI
 {
     public static class Simulation
     {
-        public static string AreaPath { get; set; }
+        public static string AreaPath { private get; set; }
 
-        public static string ReceiversPath { get; set; }
+        public static string ReceiversPath { private get; set; }
 
-        #region Inverse
+        public static string ConfigPath { private get; set; }
 
-        private static InverseM _inverse;
-
-        public static InverseM Inverse
+        public static void Calculate()
         {
-            get { return _inverse ?? (_inverse = new InverseM()); }
-            set { _inverse = value; }
-        }
+            var inverse = new InverseM();
 
-        #endregion
+            if (!string.IsNullOrWhiteSpace(AreaPath))
+                inverse.InputArea(AreaPath);
+            else
+            {
+                MessageBox.Show("Не выбран файл области!", "Ошибка!");
+                return;
+            }
+            if (!string.IsNullOrWhiteSpace(ReceiversPath))
+                inverse.InputReceivers(ReceiversPath);
+            else
+            {
+                MessageBox.Show("Не выбран файл приемников!", "Ошибка!");
+                return;
+            }
+            if (!string.IsNullOrWhiteSpace(ConfigPath))
+                inverse.InputConfig(ConfigPath);
+            else
+            {
+                MessageBox.Show("Не выбран файл конфигурации!", "Ошибка!");
+                return;
+            }
+
+            inverse.Calculate();
+        }
     }
 }
