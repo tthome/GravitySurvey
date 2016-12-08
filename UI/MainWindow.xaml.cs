@@ -34,7 +34,7 @@ namespace UI
 
         private void InputAreaButton_Click(object sender, RoutedEventArgs e)
         {
-            new InputAreaWindow().Show();
+            new AreaWindow().Show();
         }
 
         private void InputReceiversButton_Click(object sender, RoutedEventArgs e)

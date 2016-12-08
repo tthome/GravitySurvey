@@ -65,11 +65,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Simulation.cs" />
     <Page Include="Area1Window.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="InputAreaWindow.xaml">
+    <Page Include="AreaWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -88,8 +89,8 @@
     <Compile Include="Area1Window.xaml.cs">
       <DependentUpon>Area1Window.xaml</DependentUpon>
     </Compile>
-    <Compile Include="InputAreaWindow.xaml.cs">
-      <DependentUpon>InputAreaWindow.xaml</DependentUpon>
+    <Compile Include="AreaWindow.xaml.cs">
+      <DependentUpon>AreaWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="InputReceiversWindow.xaml.cs">
       <DependentUpon>InputReceiversWindow.xaml</DependentUpon>
