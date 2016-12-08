@@ -11,9 +11,9 @@ using Microsoft.Win32;
 
 namespace UI
 {
-    public partial class AreaWindow
+    public partial class Area1Window
     {
-        public AreaWindow()
+        public Area1Window()
         {
             InitializeComponent();
         }

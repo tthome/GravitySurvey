@@ -29,7 +29,7 @@ namespace UI
             var openFileDialog = new OpenFileDialog();
             if (openFileDialog.ShowDialog(this) == true)
                 ShowArea(openFileDialog.FileName);
-            //new AreaWindow().Show();
+            //new Area1Window().Show();
         }
 
         private void InputAreaButton_Click(object sender, RoutedEventArgs e)
