@@ -1,11 +1,11 @@
-﻿using Microsoft.Win32;
-using System.IO;
+﻿using System.IO;
 using System.Windows;
+using Microsoft.Win32;
+using Shell;
 
 namespace UI
 {
-
-    public partial class InputAreaWindow : Window
+    public partial class InputAreaWindow
     {
         public InputAreaWindow()
         {
@@ -16,17 +16,20 @@ namespace UI
         {
             var fileDialog = new OpenFileDialog();
             var result = fileDialog.ShowDialog();
-            if (result == true) {
-                string file1 = fileDialog.FileName;
+            if (result == true)
+            {
+                var file1 = fileDialog.FileName;
+                Manager m = new Manager();
+                m.InputArea(file1);
                 ShowArea(file1);
-            }            
+            }
         }
 
-        private void ShowArea(string path) 
+        private void ShowArea(string path)
         {
-            using (var reader = new StreamReader(path)) 
-            {               
-                AreaTextBox.Text = reader.ReadToEnd();              
+            using (var reader = new StreamReader(path))
+            {
+                AreaTextBox.Text = reader.ReadToEnd();
             }
         }
     }

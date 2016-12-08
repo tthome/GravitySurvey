@@ -13,6 +13,7 @@ void Inverse::input(const string& areaPath, const string& receiversPath, const s
 
 void Inverse::inputArea(const string& path)
 {
+	cout << "Reading area..";
 	area.generate(path);
 }
 

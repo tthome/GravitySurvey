@@ -1,18 +1,24 @@
 #include "Stdafx.h"
-
 #include "Manager.h"
-#include "Inverse.h"
+
+#include <string>
+
+using namespace std;
 
 namespace Shell
 {
-	Manager::Manager() 
+	Manager::Manager()
 	{
-		//inverse = new Inverse;
+		inverse = new Inverse();
 	}
 
-	Manager::~Manager() 
+	Manager::~Manager()
 	{
-		//delete inverse;
+		if (inverse != nullptr)
+		{
+			delete inverse;
+			inverse = nullptr;
+		}
 	}
 
 	void Manager::Run()
@@ -22,9 +28,22 @@ namespace Shell
 		//inverse->calculate();
 	}
 
+	void MarshalString(String ^ s, string& os) {
+		using namespace Runtime::InteropServices;
+		const char* chars =
+			(const char*)(Marshal::StringToHGlobalAnsi(s)).ToPointer();
+		os = chars;
+		Marshal::FreeHGlobal(IntPtr((void*)chars));
+	}
+
 	void Manager::InputArea(String^ path)
 	{
-		//inverse->inputArea(path);
+		Console::WriteLine("InputArea");
+		string s;
+		MarshalString(path, s);
+		inverse->inputArea(s);
 	}
+
+	
 }
 
