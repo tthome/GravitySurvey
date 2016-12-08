@@ -19,19 +19,9 @@ namespace UI
         public MainWindow()
         {
             InitializeComponent();
-            MyModel = new PlotModel {Title = "Example 1"};
-            MyModel.Series.Add(new FunctionSeries(Math.Cos, 0, 10, 0.1, "cos(x)"));
         }
 
-        public PlotModel MyModel { get; }
-
-        private void MenuItem_OnClick(object sender, RoutedEventArgs e)
-        {
-            var openFileDialog = new OpenFileDialog();
-            if (openFileDialog.ShowDialog(this) == true)
-                ShowArea(openFileDialog.FileName);
-            //new Area1Window().Show();
-        }
+        public PlotModel MyModel { get; set; }
 
         private void InputAreaButton_OnClick(object sender, RoutedEventArgs e)
         {
@@ -45,17 +35,44 @@ namespace UI
 
         private void SolutionButton_OnClick(object sender, RoutedEventArgs e)
         {
-            Simulation.Calculate();
+            if (Simulation.Calculate())
+            {
+                ShowArea("../../../Solution.txt");
+                ShowPlot("../../../Calculated.txt");
+            }
         }
 
-        private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
+        private void ShowPlot(string path)
         {
+            MyModel = new PlotModel();
+            var lineSeries = new LineSeries();
+            lineSeries.Points.Clear();
+
+            using (var reader = new StreamReader(path))
+            {
+                var line = reader.ReadLine();
+                while (!string.IsNullOrWhiteSpace(line))
+                {
+                    var strings = line.Split(' ', '\t');
+                    var x = Convert.ToDouble(strings[0], CultureInfo.InvariantCulture);
+                    var y = Convert.ToDouble(strings[1], CultureInfo.InvariantCulture);
+                    lineSeries.Points.Add(new DataPoint(x, y));
+                    line = reader.ReadLine();
+                }
+            }
+
+            MyModel.Series.Add(lineSeries);
+
             PlotView.DataContext = null;
             PlotView.DataContext = this;
         }
 
         private void ShowArea(string path)
         {
+            AreaGrid.RowDefinitions.Clear();
+            AreaGrid.ColumnDefinitions.Clear();
+            AreaGrid.Children.Clear();
+
             var values = LoadArea(path);
             var min = values.SelectMany(row => row).Min();
             var max = values.SelectMany(row => row).Max();
@@ -66,10 +83,11 @@ namespace UI
                 for (var column = 0; column < values[row].Length; column++)
                 {
                     if (!isColumnsInitialized) AreaGrid.ColumnDefinitions.Add(new ColumnDefinition());
-                    var percent = (max - values[row][column])/(max - min);
+                    //var percent = (max - values[row][column])/(max - min);
+                    var percent = values[row][column]/max;
                     var textBlock = new TextBlock
                     {
-                        Text = values[row][column].ToString("E2"),
+                        Text = values[row][column].ToString("E2", CultureInfo.InvariantCulture),
                         Background = new SolidColorBrush(
                             Color.FromArgb((byte) (255*percent), 39, 174, 96))
                     };
@@ -81,7 +99,7 @@ namespace UI
             }
         }
 
-        private List<double[]> LoadArea(string path)
+        private static List<double[]> LoadArea(string path)
         {
             var list = new List<double[]>();
             using (var reader = new StreamReader(path))

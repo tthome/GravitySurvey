@@ -5,23 +5,22 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:oxy="http://oxyplot.org/wpf"
+    xmlns:ui="clr-namespace:UI"
     mc:Ignorable="d"
     Title="MainWindow"
     MinWidth="640"
-    MinHeight="480"
-    SizeToContent="WidthAndHeight"
-    Loaded="MainWindow_OnLoaded">
+    SizeToContent="WidthAndHeight">
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Grid>
+        <Grid
+            Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
@@ -159,29 +158,31 @@
             </GroupBox>
         </Grid>
 
-        <!--1 plot-->
-        <Grid Margin="5" Grid.Row="2">
-            <oxy:PlotView Name="PlotView" MinHeight="200" Model="{Binding MyModel}" />
-        </Grid>
-        <!--2 plot-->
-        <Grid Margin="5" Grid.Row="3">
-            <ScrollViewer
-                HorizontalScrollBarVisibility="Auto"
-                VerticalScrollBarVisibility="Auto">
-                <Grid x:Name="AreaGrid" />
-            </ScrollViewer>
+        <Grid
+            Grid.Row="1">
+            <GroupBox
+                Header="Решение"
+                Margin="5">
+                <ScrollViewer
+                    HorizontalScrollBarVisibility="Auto"
+                    VerticalScrollBarVisibility="Auto">
+                    <Grid
+                        Name="AreaGrid" />
+                </ScrollViewer>
+            </GroupBox>
         </Grid>
 
-        <Button
-            BorderThickness="2"
-            Background="#FFECF0F1"
-            BorderBrush="#FF34495E"
-            Padding="5,0,5,2"
-            FontSize="14"
-            Grid.Row="4"
-            VerticalAlignment="Top"
-            Content="область"
-            Click="MenuItem_OnClick"
-            Margin="5" />
+        <Grid Grid.Row="2">
+            <GroupBox
+                Header="Графики"
+                Margin="5">
+                <oxy:PlotView
+                    d:DataContext="{d:DesignInstance ui:MainWindow}"
+                    Name="PlotView"
+                    Model="{Binding MyModel}"
+                    MinHeight="200"/>
+            </GroupBox>
+        </Grid>
+
     </Grid>
 </Window>

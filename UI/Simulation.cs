@@ -11,7 +11,7 @@ namespace UI
 
         public static string ConfigPath { private get; set; }
 
-        public static void Calculate()
+        public static bool Calculate()
         {
             var inverse = new InverseM();
 
@@ -20,24 +20,26 @@ namespace UI
             else
             {
                 MessageBox.Show("Не выбран файл области!", "Ошибка!");
-                return;
+                return false;
             }
             if (!string.IsNullOrWhiteSpace(ReceiversPath))
                 inverse.InputReceivers(ReceiversPath);
             else
             {
                 MessageBox.Show("Не выбран файл приемников!", "Ошибка!");
-                return;
+                return false;
             }
             if (!string.IsNullOrWhiteSpace(ConfigPath))
                 inverse.InputConfig(ConfigPath);
             else
             {
                 MessageBox.Show("Не выбран файл конфигурации!", "Ошибка!");
-                return;
+                return false;
             }
 
             inverse.Calculate();
+
+            return true;
         }
     }
 }
