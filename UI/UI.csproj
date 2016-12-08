@@ -74,7 +74,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="InputReceiversWindow.xaml">
+    <Page Include="ReceiversWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -92,8 +92,8 @@
     <Compile Include="AreaWindow.xaml.cs">
       <DependentUpon>AreaWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="InputReceiversWindow.xaml.cs">
-      <DependentUpon>InputReceiversWindow.xaml</DependentUpon>
+    <Compile Include="ReceiversWindow.xaml.cs">
+      <DependentUpon>ReceiversWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

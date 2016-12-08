@@ -6,6 +6,8 @@ namespace UI
     {
         public static string AreaPath { get; set; }
 
+        public static string ReceiversPath { get; set; }
+
         #region Inverse
 
         private static InverseM _inverse;

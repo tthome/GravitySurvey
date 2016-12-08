@@ -18,8 +18,8 @@ namespace UI
                 FileName = "Area",
                 DefaultExt = "txt"
             };
-            var result = fileDialog.ShowDialog();
-            if (result == true)
+
+            if (fileDialog.ShowDialog() == true)
             {
                 Simulation.AreaPath = fileDialog.FileName;
                 ShowArea(fileDialog.FileName);
@@ -42,13 +42,14 @@ namespace UI
                 FileName = "Area",
                 DefaultExt = ".txt"
             };
-            var result = fileDialog.ShowDialog();
-            if (result == true)
+
+            if (fileDialog.ShowDialog() == true)
             {
                 using (var writer = new StreamWriter(fileDialog.FileName))
                 {
                     writer.Write(AreaTextBox.Text);
                 }
+
                 Simulation.AreaPath = fileDialog.FileName;
                 ShowArea(fileDialog.FileName);
                 OkButton.IsEnabled = true;

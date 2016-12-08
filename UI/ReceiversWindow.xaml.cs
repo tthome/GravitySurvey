@@ -14,9 +14,24 @@ namespace UI
             InitializeComponent();
         }
 
+        private void OpenFileButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var fileDialog = new OpenFileDialog
+            {
+                FileName = "Receivers",
+                DefaultExt = "txt"
+            };
+
+            if (fileDialog.ShowDialog() == true)
+            {
+                Simulation.ReceiversPath = fileDialog.FileName;
+                OkButton.IsEnabled = true;
+            }
+        }
+
         private void GenerateReceivers_OnClick(object sender, RoutedEventArgs e)
         {
-            var receiverCount = Convert.ToInt32(ReceiversCount.Text);
+            var receiversCount = Convert.ToInt32(ReceiversCountTextBox.Text);
 
             var beginX = Convert.ToDouble(BeginX.Text);
             var beginY = Convert.ToDouble(BeginY.Text);
@@ -25,18 +40,22 @@ namespace UI
             var endY = Convert.ToDouble(EndY.Text);
             var endZ = Convert.ToDouble(EndZ.Text);
 
-            var hx = (endX - beginX)/receiverCount;
-            var hy = (endY - beginY)/receiverCount;
-            var hz = (endZ - beginZ)/receiverCount;
+            var hx = (endX - beginX)/receiversCount;
+            var hy = (endY - beginY)/receiversCount;
+            var hz = (endZ - beginZ)/receiversCount;
 
-            var fileDialog = new SaveFileDialog();
+            var fileDialog = new SaveFileDialog
+            {
+                FileName = "Receivers",
+                DefaultExt = "txt"
+            };
 
             if (fileDialog.ShowDialog() == true)
             {
                 using (var writer = new StreamWriter(fileDialog.OpenFile(), Encoding.Default))
                 {
-                    writer.WriteLine(receiverCount);
-                    for (var i = 0; i < receiverCount; i++)
+                    writer.WriteLine(receiversCount);
+                    for (var i = 0; i < receiversCount; i++)
                     {
                         var x = i*hx + beginX;
                         var y = i*hy + beginY;
@@ -45,8 +64,15 @@ namespace UI
                                          y.ToString(CultureInfo.InvariantCulture) + " " +
                                          z.ToString(CultureInfo.InvariantCulture));
                     }
+                    Simulation.ReceiversPath = fileDialog.FileName;
+                    OkButton.IsEnabled = true;
                 }
             }
+        }
+
+        private void OkButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }
