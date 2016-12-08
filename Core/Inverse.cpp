@@ -13,12 +13,13 @@ void Inverse::input(const string& areaPath, const string& receiversPath, const s
 
 void Inverse::inputArea(const string& path)
 {
-	cout << "Reading area..";
+	cout << "Reading area.." << endl;
 	area.generate(path);
 }
 
 void Inverse::inputReceivers(const string& path)
 {
+	cout << "Reading reveivers.." << endl;
 	ifstream ifs(path);
 	ofstream ofs("../../../Analytical.txt");
 	int nReceivers;
@@ -36,6 +37,7 @@ void Inverse::inputReceivers(const string& path)
 
 void Inverse::inputConfig(const string& path)
 {
+	cout << "Reading config.." << endl;
 	ifstream ifs(path);
 	if (ifs.good())
 	{

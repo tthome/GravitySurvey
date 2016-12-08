@@ -1,5 +1,5 @@
 #include "Stdafx.h"
-#include "Manager.h"
+#include "InverseM.h"
 
 #include <string>
 
@@ -7,43 +7,33 @@ using namespace std;
 
 namespace Shell
 {
-	Manager::Manager()
+	InverseM::InverseM()
 	{
 		inverse = new Inverse();
 	}
 
-	Manager::~Manager()
+	InverseM::~InverseM()
 	{
 		if (inverse != nullptr)
 		{
 			delete inverse;
 			inverse = nullptr;
 		}
-	}
+	}	
 
-	void Manager::Run()
+	void MarshalString(String ^s, string& os)
 	{
-		
-		//inverse->input("../../../Area.txt", "../../../Receivers.txt", "../../../Config.txt");
-		//inverse->calculate();
-	}
-
-	void MarshalString(String ^ s, string& os) {
 		using namespace Runtime::InteropServices;
-		const char* chars =
-			(const char*)(Marshal::StringToHGlobalAnsi(s)).ToPointer();
+		const char* chars = (const char*)(Marshal::StringToHGlobalAnsi(s)).ToPointer();
 		os = chars;
 		Marshal::FreeHGlobal(IntPtr((void*)chars));
 	}
 
-	void Manager::InputArea(String^ path)
+	void InverseM::InputArea(String^ path)
 	{
 		Console::WriteLine("InputArea");
 		string s;
 		MarshalString(path, s);
 		inverse->inputArea(s);
-	}
-
-	
+	}	
 }
-
