@@ -21,7 +21,7 @@
         </Menu>-->
         <Grid Background="#FFECF0F1" Grid.Row="0">
             <Button
-                BorderThickness="2" 
+                BorderThickness="2"
                 Background="#FFECF0F1"
                 BorderBrush="#FF34495E"
                 Padding="5,0,5,2"
@@ -29,7 +29,7 @@
                 Margin="5"
                 Click="FileOpen_OnClick"
                 HorizontalAlignment="Left"
-                Content="Открыть из файла"/>
+                Content="Открыть из файла" />
         </Grid>
         <ScrollViewer
             Grid.Row="1"

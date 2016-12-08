@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
+using Microsoft.Win32;
 using OxyPlot;
 using OxyPlot.Series;
-using Microsoft.Win32;
-using System.IO;
-using System.Text.RegularExpressions;
-using System.Windows.Media;
-using System.Globalization;
-using System.Windows.Controls;
-using System.Linq;
 
 namespace UI
 {
@@ -18,11 +18,11 @@ namespace UI
         public MainWindow()
         {
             InitializeComponent();
-            this.MyModel = new PlotModel { Title = "Example 1" };
-            this.MyModel.Series.Add(new FunctionSeries(Math.Cos, 0, 10, 0.1, "cos(x)"));
-
+            MyModel = new PlotModel {Title = "Example 1"};
+            MyModel.Series.Add(new FunctionSeries(Math.Cos, 0, 10, 0.1, "cos(x)"));
         }
-        public PlotModel MyModel { get; private set; }
+
+        public PlotModel MyModel { get; }
 
         private void MenuItem_OnClick(object sender, RoutedEventArgs e)
         {
@@ -44,7 +44,7 @@ namespace UI
 
         private void SolutionButton_Click(object sender, RoutedEventArgs e)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
@@ -65,12 +65,12 @@ namespace UI
                 for (var column = 0; column < values[row].Length; column++)
                 {
                     if (!isColumnsInitialized) AreaGrid.ColumnDefinitions.Add(new ColumnDefinition());
-                    var percent = (max - values[row][column]) / (max - min);
+                    var percent = (max - values[row][column])/(max - min);
                     var textBlock = new TextBlock
                     {
                         Text = values[row][column].ToString("E2"),
                         Background = new SolidColorBrush(
-                            Color.FromArgb((byte)(255 * percent), 39, 174, 96))
+                            Color.FromArgb((byte) (255*percent), 39, 174, 96))
                     };
                     Grid.SetRow(textBlock, row);
                     Grid.SetColumn(textBlock, column);
@@ -92,7 +92,9 @@ namespace UI
                     var matches = regex.Matches(line);
                     var values = new double[matches.Count];
                     for (var i = 0; i < matches.Count; i++)
+                    {
                         values[i] = Convert.ToDouble(matches[i].Value, CultureInfo.InvariantCulture);
+                    }
                     list.Add(values);
                     line = reader.ReadLine();
                 }

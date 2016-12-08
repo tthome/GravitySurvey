@@ -64,7 +64,9 @@ namespace UI
                     var matches = regex.Matches(line);
                     var values = new double[matches.Count];
                     for (var i = 0; i < matches.Count; i++)
+                    {
                         values[i] = Convert.ToDouble(matches[i].Value, CultureInfo.InvariantCulture);
+                    }
                     list.Add(values);
                     line = reader.ReadLine();
                 }

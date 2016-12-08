@@ -30,7 +30,7 @@
                     Text="X"
                     FontWeight="SemiBold"
                     HorizontalAlignment="Center"
-                    VerticalAlignment="Bottom"  />
+                    VerticalAlignment="Bottom" />
                 <TextBlock
                     Grid.Row="0"
                     Grid.Column="2"
@@ -109,14 +109,14 @@
             </Grid>
         </GroupBox>
         <Button
-            BorderThickness="2" 
+            BorderThickness="2"
             Background="#FFECF0F1"
             BorderBrush="#FF34495E"
             Padding="5,0,5,2"
             FontSize="14"
             Content="Генерировать"
             Margin="5"
-            Click="GenerateReceivers_OnClick"/>
+            Click="GenerateReceivers_OnClick" />
     </StackPanel>
 
 </Window>

@@ -19,7 +19,7 @@ namespace UI
             if (result == true)
             {
                 var file1 = fileDialog.FileName;
-                InverseM m = new InverseM();
+                var m = new InverseM();
                 m.InputArea(file1);
                 ShowArea(file1);
             }

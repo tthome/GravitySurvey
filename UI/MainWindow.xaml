@@ -8,7 +8,7 @@
     xmlns:ui="clr-namespace:UI"
     mc:Ignorable="d"
     Title="MainWindow"
-    Height="375" 
+    Height="375"
     MinHeight="300"
     Width="572"
     Loaded="MainWindow_OnLoaded">
@@ -16,83 +16,83 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition />
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        
+
         <Grid Grid.Row="0" Background="#FFECF0F1">
             <StackPanel Orientation="Horizontal" Margin="5,0">
                 <Button
-                    BorderThickness="2" 
+                    BorderThickness="2"
                     Background="{x:Null}"
                     BorderBrush="#FF34495E"
                     Padding="5,0,5,2"
                     FontSize="14"
                     Content="Ввод области"
                     Click="InputAreaButton_Click"
-                    Margin="5"/>
+                    Margin="5" />
                 <Button
-                    BorderThickness="2" 
+                    BorderThickness="2"
                     Background="{x:Null}"
                     BorderBrush="#FF34495E"
                     Padding="5,0,5,2"
                     FontSize="14"
                     Content="Ввод приемников"
-                    Click="InputReceiversButton_Click" 
-                    Margin="5"/>
+                    Click="InputReceiversButton_Click"
+                    Margin="5" />
                 <Button
-                    BorderThickness="2" 
+                    BorderThickness="2"
                     BorderBrush="#FF34495E"
                     Padding="5,0,5,2"
                     FontSize="14"
                     Content="Решение"
                     Click="SolutionButton_Click"
-                    Margin="5" 
-                    Background="{x:Null}"/>
+                    Margin="5"
+                    Background="{x:Null}" />
             </StackPanel>
         </Grid>
 
-        <StackPanel VerticalAlignment="Top" Grid.Row="1"  Background="#FFECF0F1">
+        <StackPanel VerticalAlignment="Top" Grid.Row="1" Background="#FFECF0F1">
             <StackPanel Margin="10,0" Orientation="Horizontal">
-                <TextBlock x:Name="label" Text="Регулязация по альфа"/>
-                <CheckBox x:Name="checkBox" Margin="4,0,16,0" VerticalAlignment="Center"/>
-                <TextBlock x:Name="labe2" Text="Альфа0"/>
-                <TextBox x:Name="textBox" Text="" Width="46" Margin="4,0,16,0"/>
-                <TextBlock x:Name="labe3" Text="шаг"/>
-                <TextBox x:Name="textBox1" Text="" Width="28" Margin="4,0,16,0"/>
-                <TextBlock x:Name="labe4" Text="коэффициент"/>
-                <TextBox x:Name="textBox2" Text="" Width="46" Margin="4,0"/>
+                <TextBlock x:Name="label" Text="Регулязация по альфа" />
+                <CheckBox x:Name="checkBox" Margin="4,0,16,0" VerticalAlignment="Center" />
+                <TextBlock x:Name="labe2" Text="Альфа0" />
+                <TextBox x:Name="textBox" Text="" Width="46" Margin="4,0,16,0" />
+                <TextBlock x:Name="labe3" Text="шаг" />
+                <TextBox x:Name="textBox1" Text="" Width="28" Margin="4,0,16,0" />
+                <TextBlock x:Name="labe4" Text="коэффициент" />
+                <TextBox x:Name="textBox2" Text="" Width="46" Margin="4,0" />
             </StackPanel>
 
             <StackPanel Margin="10,5" Orientation="Horizontal">
-                <TextBlock x:Name="labe5" Text="Регулязация по гамма"/>
-                <CheckBox x:Name="checkBox1" Margin="4,0,16,0" VerticalAlignment="Center"/>
-                <TextBlock x:Name="labe6" Text="Альфа0"/>
-                <TextBox x:Name="textBox3" Text="" Width="46"  Margin="4,0,16,0"/>
-                <TextBlock x:Name="labe7" Text="шаг"/>
-                <TextBox x:Name="textBox4" Text="" Width="28"  Margin="4,0,16,0"/>
-                <TextBlock x:Name="labe8" Text="коэффициент"/>
-                <TextBox x:Name="textBox5" Text="" Width="46"  Margin="4,0,16,0"/>
+                <TextBlock x:Name="labe5" Text="Регулязация по гамма" />
+                <CheckBox x:Name="checkBox1" Margin="4,0,16,0" VerticalAlignment="Center" />
+                <TextBlock x:Name="labe6" Text="Альфа0" />
+                <TextBox x:Name="textBox3" Text="" Width="46" Margin="4,0,16,0" />
+                <TextBlock x:Name="labe7" Text="шаг" />
+                <TextBox x:Name="textBox4" Text="" Width="28" Margin="4,0,16,0" />
+                <TextBlock x:Name="labe8" Text="коэффициент" />
+                <TextBox x:Name="textBox5" Text="" Width="46" Margin="4,0,16,0" />
             </StackPanel>
         </StackPanel>
-        
+
         <!--1 plot-->
         <Grid Margin="5" Grid.Row="2">
-            <oxy:PlotView Name="PlotView" MinHeight="200"  Model="{Binding MyModel}"/>
+            <oxy:PlotView Name="PlotView" MinHeight="200" Model="{Binding MyModel}" />
         </Grid>
         <!--2 plot-->
         <Grid Margin="5" Grid.Row="3">
             <ScrollViewer
-                HorizontalScrollBarVisibility="Auto" 
+                HorizontalScrollBarVisibility="Auto"
                 VerticalScrollBarVisibility="Auto">
                 <Grid x:Name="AreaGrid" />
             </ScrollViewer>
         </Grid>
-        
+
         <Button
-            BorderThickness="2" 
+            BorderThickness="2"
             Background="#FFECF0F1"
             BorderBrush="#FF34495E"
             Padding="5,0,5,2"
@@ -101,6 +101,6 @@
             VerticalAlignment="Top"
             Content="область"
             Click="MenuItem_OnClick"
-            Margin="5"/>
+            Margin="5" />
     </Grid>
 </Window>
