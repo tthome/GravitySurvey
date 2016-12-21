@@ -1,12 +1,19 @@
 ﻿<Window
-    x:Class="UI.InputReceiversWindow"
+    x:Class="UI.ReceiversWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Title="Ввод приемников" Height="220" Width="300">
-    <StackPanel>
+    Title="Ввод приемников"
+    MinWidth="300"
+    SizeToContent="WidthAndHeight">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
         <GroupBox
             Header="Параметры приемников"
             Margin="5">
@@ -28,23 +35,17 @@
                     Grid.Row="0"
                     Grid.Column="1"
                     Text="X"
-                    FontWeight="SemiBold"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Bottom"  />
+                    HorizontalAlignment="Center" />
                 <TextBlock
                     Grid.Row="0"
                     Grid.Column="2"
                     Text="Y"
-                    FontWeight="SemiBold"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Bottom" />
+                    HorizontalAlignment="Center" />
                 <TextBlock
                     Grid.Row="0"
                     Grid.Column="3"
                     Text="Z"
-                    FontWeight="SemiBold"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Bottom" />
+                    HorizontalAlignment="Center" />
                 <TextBlock
                     Grid.Row="1"
                     Grid.Column="0"
@@ -55,7 +56,7 @@
                     Name="BeginX"
                     Grid.Row="1"
                     Grid.Column="1"
-                    Text="-1995"
+                    Text="-2000"
                     Margin="5" />
                 <TextBox
                     Name="BeginY"
@@ -98,25 +99,44 @@
                     Grid.Column="0"
                     Grid.ColumnSpan="2"
                     Text="Количество приемников"
-                    Margin="5,10,0,5" />
+                    Margin="5" />
                 <TextBox
-                    Name="ReceiversCount"
+                    Name="ReceiversCountTextBox"
                     Grid.Row="3"
                     Grid.Column="2"
                     Grid.ColumnSpan="2"
                     Text="800"
-                    Margin="5,10,5,5" />
+                    Margin="5" />
             </Grid>
         </GroupBox>
-        <Button
-            BorderThickness="2" 
-            Background="#FFECF0F1"
-            BorderBrush="#FF34495E"
-            Padding="5,0,5,2"
-            FontSize="14"
-            Content="Генерировать"
-            Margin="5"
-            Click="GenerateReceivers_OnClick"/>
-    </StackPanel>
+        <Grid
+            Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Button
+                Grid.Column="0"
+                Padding="5,0,5,2"
+                Content="Открыть"
+                Click="OpenFileButton_OnClick"
+                Margin="5" />
+            <Button
+                Grid.Column="1"
+                Padding="5,0,5,2"
+                Content="Генерировать"
+                Margin="5"
+                Click="GenerateReceivers_OnClick" />
+            <Button
+                Grid.Column="2"
+                Padding="5,0,5,2"
+                IsEnabled="False"
+                Name="OkButton"
+                Content="Ок"
+                Click="OkButton_OnClick"
+                Margin="5" />
+        </Grid>
 
+    </Grid>
 </Window>
